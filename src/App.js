@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import styles from './App.module.css'
 
 const App = () => {
   const [date, setDate] = useState('')
@@ -186,42 +187,47 @@ const App = () => {
   }
   function checkIfPalindrome(e){
     e.preventDefault()
-    const birthdate = convertDateToString()
-    let birthdateStr = getDateAsString(birthdate)
-    let list = checkPalindromeForAllFormats(birthdateStr)
-    let isPalindrome = false;
-
-    for (let i = 0; i < list.length; i++) {
-      if (list[i]) {
-        isPalindrome = true;
-        break;
-      }
-    }
-    if (!isPalindrome) {
-      const [ctr1, nextDate] = getNextPalindromeDate(birthdate);
-      const [ctr2, prevDate] = getPreviousPalindromeDate(birthdate);
-
-      if (ctr1 > ctr2) {
-        setMessage(`The nearest palindrome date is ${prevDate.day}-${prevDate.month}-${prevDate.year}, you missed by ${ctr2} days.`)
-      } else {
-        setMessage(`The nearest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed by ${ctr1} days.`)
-      }
-
+    if (!date) {
+      setMessage('Enter the date')
     } else {
-      setMessage('Yay! Your birthday is palindrome!')
+
+      const birthdate = convertDateToString()
+      let birthdateStr = getDateAsString(birthdate)
+      let list = checkPalindromeForAllFormats(birthdateStr)
+      let isPalindrome = false;
+      
+      for (let i = 0; i < list.length; i++) {
+        if (list[i]) {
+          isPalindrome = true;
+          break;
+        }
+      }
+      if (!isPalindrome) {
+        const [ctr1, nextDate] = getNextPalindromeDate(birthdate);
+        const [ctr2, prevDate] = getPreviousPalindromeDate(birthdate);
+        
+        if (ctr1 > ctr2) {
+          setMessage(`The nearest palindrome date is ${prevDate.day}-${prevDate.month}-${prevDate.year}, you missed by ${ctr2} days.`)
+        } else {
+          setMessage(`The nearest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed by ${ctr1} days.`)
+        }
+        
+      } else {
+        setMessage('Yay! Your birthday is palindrome!')
+      }
     }
   }
   return (
     <div>
-      <h3>Palindrome Birthday</h3>
-      <form onSubmit={checkIfPalindrome}>
+      <h3 className={styles.heading}>palindrome birthday</h3>
+      <form className={styles.form_div} onSubmit={checkIfPalindrome}>
         <label>enter your birth date</label><br />
-        <input type='date' value={date} onChange={(e) => setDate(e.target.value)} /><br />
+        <input className={styles.form_input} type='date' value={date} onChange={(e) => setDate(e.target.value)} /><br />
         <input type='submit' value='submit' />
       </form>
-      {
+      <div className={styles.verdict}>{
         message && `${message}`
-      }
+      }</div>
     </div>
   );
 }
