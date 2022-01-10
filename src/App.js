@@ -5,7 +5,7 @@ const App = () => {
   const [date, setDate] = useState('')
   const [message, setMessage] = useState('')
 
-  function convertDateToString() {
+  const convertDateToString = () => {
     const dateArr = date.split('-')
     return {
       day: parseInt(dateArr[2]),
@@ -13,7 +13,7 @@ const App = () => {
       year: parseInt(dateArr[0]),
     }
   }
-  function getDateAsString(birthdate) {
+  const getDateAsString = birthdate => {
     let dateInStr = { day: '', month: '', year: '' };
 
     if (birthdate.day < 10) {
@@ -33,7 +33,7 @@ const App = () => {
     dateInStr.year = birthdate.year.toString();
     return dateInStr;
   }
-  function getDateInAllFormats(birthdate) {
+  const getDateInAllFormats = birthdate => {
     let ddmmyyyy = birthdate.day + birthdate.month + birthdate.year;
     let mmddyyyy = birthdate.month + birthdate.day + birthdate.year;
     let yyyymmdd = birthdate.year + birthdate.month + birthdate.day;
@@ -43,17 +43,17 @@ const App = () => {
   
     return [ddmmyyyy, mmddyyyy, yyyymmdd, ddmmyy, mmddyy, yyddmm];
   }
-  function reverseString(str) {
+  const reverseString = str => {
     let listOfChars = str.split('');
     let reversedListOfChar = listOfChars.reverse();
     let reversedString = reversedListOfChar.join('');
     return reversedString;
   }
-  function isStringPalindrome(str) {
+  const isStringPalindrome = str => {
     let reversedString = reverseString(str);
     return str === reversedString;
   }
-  function checkPalindromeForAllFormats(birthdate) {
+  const checkPalindromeForAllFormats = birthdate => {
     let dateFormatList = getDateInAllFormats(birthdate);
     let palindromeList = [];
 
@@ -63,7 +63,7 @@ const App = () => {
     }
     return palindromeList;
   }
-  function isLeapYear(year) {
+  const isLeapYear = year => {
 
     if (year % 400 === 0)
       return true;
@@ -76,7 +76,7 @@ const App = () => {
   
     return false;
   }
-  function getNextDate(birthdate) {
+  const getNextDate = birthdate => {
     let day = birthdate.day + 1;
     let month = birthdate.month;
     let year = birthdate.year;
@@ -115,7 +115,7 @@ const App = () => {
       year: year
     }
   }
-  function getNextPalindromeDate(birthdate) {
+  const getNextPalindromeDate = birthdate => {
 
     let nextDate = getNextDate(birthdate);
     let ctr = 0;
@@ -133,7 +133,7 @@ const App = () => {
       nextDate = getNextDate(nextDate);
     }
   }
-  function getPreviousDate(birthdate) {
+  const getPreviousDate = birthdate => {
     let day = birthdate.day - 1;
     let month = birthdate.month;
     let year = birthdate.year;
@@ -162,12 +162,12 @@ const App = () => {
     }
   
     return {
-      day: day,
-      month: month,
-      year: year
+      day,
+      month,
+      year
     }
   }
-  function getPreviousPalindromeDate(birthdate) {
+  const getPreviousPalindromeDate = birthdate => {
 
     let previousDate = getPreviousDate(birthdate);
     let ctr = 0;
@@ -185,7 +185,7 @@ const App = () => {
       previousDate = getPreviousDate(previousDate);
     }
   }
-  function checkIfPalindrome(e){
+  const checkIfPalindrome = e => {
     e.preventDefault()
     if (!date) {
       setMessage('Enter the date')
